@@ -1,0 +1,93 @@
+[
+  {
+    "id": 1,
+    "book": "Melody",
+    "author": "Allan",
+    "genre": "Comedy",
+    "date": "1855-12-10"
+  },
+  {
+    "id": 2,
+    "book": "Napaleon",
+    "author": "Mukola",
+    "genre": "Drama",
+    "date": "2005-12-10"
+  },
+  {
+    "id": 3,
+    "book": "Sky",
+    "author": "Michael Nick",
+    "genre": "Horror",
+    "date": "1995-12-10"
+  },
+  {
+    "id": 4,
+    "book": "Bad whether",
+    "author": "Rusk Messal",
+    "genre": "Drama",
+    "date": "1890-12-10"
+  },
+  {
+    "id": 5,
+    "book": "Bad whether",
+    "author": "Raul Madan",
+    "genre": "Triller",
+    "date": "1990-12-10"
+  },
+  {
+    "id": 6,
+    "book": "Djazz",
+    "author": "Evgen",
+    "genre": "Comedy",
+    "date": "1855-12-10"
+  },
+  {
+    "id": 7,
+    "book": "Poera",
+    "author": "Paul",
+    "genre": "Melodrama",
+    "date": "2023-12-10"
+  },
+  {
+    "id": 8,
+    "book": "Napaleon",
+    "author": "Mukola",
+    "genre": "Drama",
+    "date": "2005-12-10"
+  },
+  {
+    "id": 9,
+    "book": "Mana",
+    "author": "Paul",
+    "genre": "Melodrama",
+    "date": "2023-12-10"
+  },
+  {
+    "id": 10,
+    "book": "Rahmet",
+    "author": "Mall",
+    "genre": "Melodrama",
+    "date": "2023-12-10"
+  },
+  {
+    "id": 11,
+    "book": "Raull",
+    "author": "Paul",
+    "genre": "Melodrama",
+    "date": "2023-12-10"
+  },
+  {
+    "id": 12,
+    "book": "Mala",
+    "author": "Paul",
+    "genre": "Melodrama",
+    "date": "2023-12-10"
+  },
+  {
+    "id": 13,
+    "book": "Ra",
+    "author": "Mall",
+    "genre": "Melodrama",
+    "date": "2023-12-10"
+  }
+]
