@@ -15,11 +15,6 @@ class TestStringMethods(unittest.TestCase):
             "http://127.0.0.1:8000/books/",
             json=mocked_response,
         )
-        assert mocked_response[1]["id"] == 2
-        assert mocked_response[1]["book"] == "Napaleon"
-        assert mocked_response[1]["author"] == "Mukola"
-        assert mocked_response[1]["genre"] == "Drama"
-        assert mocked_response[1]["date"] == "2005-12-10"
         assert (
             responses.get(
                 "http://127.0.0.1:8000/books/",
