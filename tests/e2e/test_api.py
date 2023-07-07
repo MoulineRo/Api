@@ -1,8 +1,8 @@
 import os
 
 import requests
-
 BASE_URL = os.getenv("API_URL", "https://craftapi-d7d0310369b0.herokuapp.com/")
+
 
 
 def test_create_book():
@@ -30,7 +30,7 @@ def test_show_allbooks():
     assert list == type(response_body)
 
 
-def test_show_book_id(id=3):
+def test_show_book_id(id=1):
     r = requests.get(BASE_URL + f"api/v2/books/{id}")
     assert r.status_code == 200
     response_body = r.json()
@@ -41,7 +41,7 @@ def test_show_book_id(id=3):
     assert "date" in response_body
 
 
-def test_update_book_id(id=3):
+def test_update_book_id(id=4):
     r = requests.put(
         BASE_URL + f"api/v2/books/{id}/",
         json={
@@ -60,7 +60,7 @@ def test_update_book_id(id=3):
     assert "date" in response_body
 
 
-def test_delete_book_id(id=3):
+def test_delete_book_id(id=39):
     r = requests.delete(BASE_URL + f"api/v2/books/{id}/")
     assert r.status_code == 200
     response_body = r.json()
@@ -74,7 +74,7 @@ def test_show_allauthors():
     assert list == type(response_body)
 
 
-def test_show_author_id(id=4):
+def test_show_author_id(id=9):
     r = requests.get(BASE_URL + f"api/v2/authors/{id}/")
     assert r.status_code == 200
     response_body = r.json()
