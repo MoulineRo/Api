@@ -1,13 +1,13 @@
 import os
 
 import requests
-BASE_URL = "https://craftapi-d7d0310369b0.herokuapp.com/"
+BASE_URL = os.getenv("API_URL", "https://craftapi-d7d0310369b0.herokuapp.com/api/v2")
 
 
 
 def test_create_book():
     r = requests.post(
-        BASE_URL + "api/v2/books/",
+        "http://127.0.0.1:8000/api/v2/books/",
         json={
             "book": "Create",
             "author": "Allan",
@@ -60,7 +60,7 @@ def test_update_book_id(id=4):
     assert "date" in response_body
 
 
-def test_delete_book_id(id=39):
+def test_delete_book_id(id=41):
     r = requests.delete(BASE_URL + f"api/v2/books/{id}/")
     assert r.status_code == 200
     response_body = r.json()
