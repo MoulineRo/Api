@@ -16,13 +16,12 @@ SECRET_KEY = "django-insecure-qs@s$az@#o&e+co)lc#(s0-qmvo=@%-5f%5r)agzi$0@y1=5jp
 
 IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
 
-if not IS_HEROKU_APP:
-    DEBUG = True
+
+DEBUG = True
 
 if IS_HEROKU_APP:
     ALLOWED_HOSTS = ["*"]
-else:
-    ALLOWED_HOSTS = []
+
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
