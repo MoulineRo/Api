@@ -7,7 +7,3 @@ urlpatterns = [
     path("admin/", admin.site.urls),
 
 ]
-if settings.TEST:
-    urlpatterns += path('',
-        path(r'', include('django.contrib.staticfiles.urls')),
-        )
