@@ -60,6 +60,13 @@ def test_update_book_id(id=4):
     assert "date" in response_body
 
 
+def test_delete_book_id(id=36):
+    r = requests.delete(BASE_URL + f"api/v2/books/{id}/")
+    assert r.status_code == 200
+    response_body = r.json()
+    assert list == type(response_body)
+
+
 def test_show_allauthors():
     r = requests.get(BASE_URL + "api/v2/authors/")
     assert r.status_code == 200

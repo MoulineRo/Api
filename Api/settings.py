@@ -26,7 +26,7 @@ else:
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = ["http://localhost:8000", "https://editor.swagger.io","https://craftapi-d7d0310369b0.herokuapp.com"]
+CORS_ALLOWED_ORIGINS = ["http://localhost:8000", "https://editor.swagger.io","https://craftapi-d7d0310369b0.herokuapp.com",'https://github.com']
 
 
 # Application definition
