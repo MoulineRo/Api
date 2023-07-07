@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,7 +28,9 @@ else:
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:8000", "https://editor.swagger.io","https://craftapi-d7d0310369b0.herokuapp.com",'https://github.com']
-BASE_URL = os.getenv("API_URL", "http://127.0.0.1:8000/")
+
+TEST = True
+
 
 # Application definition
 
