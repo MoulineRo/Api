@@ -33,6 +33,8 @@ CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:8000", "https://editor.swagger.io","ht
 # Application definition
 
 INSTALLED_APPS = [
+    "rest_framework",
+    "corsheaders",
     "polls.apps.PollsConfig",
     "django.contrib.admin",
     "django.contrib.auth",

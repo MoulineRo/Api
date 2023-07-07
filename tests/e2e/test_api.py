@@ -1,4 +1,8 @@
+import os
+
 import requests
+BASE_URL = os.getenv("API_URL", "http://127.0.0.1:8000/")
+
 
 
 def test_create_book():
@@ -20,14 +24,14 @@ def test_create_book():
 
 
 def test_show_allbooks():
-    r = requests.get("http://127.0.0.1:8000/api/v2/books/")
+    r = requests.get(BASE_URL + "api/v2/books/")
     assert r.status_code == 200
     response_body = r.json()
     assert list == type(response_body)
 
 
 def test_show_book_id(id=1):
-    r = requests.get(f"http://127.0.0.1:8000/api/v2/books/{id}")
+    r = requests.get(BASE_URL + f"api/v2/books/{id}")
     assert r.status_code == 200
     response_body = r.json()
     assert "id" in response_body
@@ -39,7 +43,7 @@ def test_show_book_id(id=1):
 
 def test_update_book_id(id=4):
     r = requests.put(
-        f"http://127.0.0.1:8000/api/v2/books/{id}/",
+        BASE_URL + f"api/v2/books/{id}/",
         json={
             "book": "Updated",
             "author": "Allan",
@@ -57,21 +61,21 @@ def test_update_book_id(id=4):
 
 
 def test_delete_book_id(id=41):
-    r = requests.delete(f"http://127.0.0.1:8000/api/v2/books/{id}/")
+    r = requests.delete(BASE_URL + f"api/v2/books/{id}/")
     assert r.status_code == 200
     response_body = r.json()
     assert list == type(response_body)
 
 
 def test_show_allauthors():
-    r = requests.get("http://127.0.0.1:8000/api/v2/authors/")
+    r = requests.get(BASE_URL + "api/v2/authors/")
     assert r.status_code == 200
     response_body = r.json()
     assert list == type(response_body)
 
 
 def test_show_author_id(id=9):
-    r = requests.get(f"http://127.0.0.1:8000/api/v2/authors/{id}/")
+    r = requests.get(BASE_URL + f"api/v2/authors/{id}/")
     assert r.status_code == 200
     response_body = r.json()
     assert "id" in response_body
