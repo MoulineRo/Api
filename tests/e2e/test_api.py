@@ -1,13 +1,14 @@
 import os
 
 import requests
-BASE_URL = os.getenv("API_URL", "http://127.0.0.1:8000/")
+BASE_URL = "http://127.0.0.1:8000"
+ENDPOINT='api/v2/'
 
 
 
 def test_create_book():
     r = requests.post(
-        BASE_URL + "api/v2/books/",
+        BASE_URL +"/"+ ENDPOINT + "books",
         json={
             "book": "Create",
             "author": "Allan",
