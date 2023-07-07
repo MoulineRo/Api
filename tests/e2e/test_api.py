@@ -1,14 +1,13 @@
 import os
 
 import requests
-BASE_URL = "http://127.0.0.1:8000"
-ENDPOINT='api/v2/'
+BASE_URL = "http://127.0.0.1:8000/"
 
 
 
 def test_create_book():
     r = requests.post(
-        BASE_URL +"/"+ ENDPOINT + "books",
+        BASE_URL + "api/v2/books/",
         json={
             "book": "Create",
             "author": "Allan",
