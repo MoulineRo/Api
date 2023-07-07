@@ -75,7 +75,7 @@ def test_show_allauthors():
 
 
 def test_show_author_id(id=4):
-    r = requests.get(BASE_URL + f"api/v2/authors/{id}/")
+    r = requests.get(BASE_URL + f"api/v2/authors/{id}")
     assert r.status_code == 200
     response_body = r.json()
     assert "id" in response_body
