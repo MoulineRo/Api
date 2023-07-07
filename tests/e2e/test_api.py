@@ -1,13 +1,13 @@
 import os
 
 import requests
-BASE_URL = os.getenv("API_URL", "https://craftapi-d7d0310369b0.herokuapp.com/api/v2")
+BASE_URL = os.getenv("API_URL", "https://craftapi-d7d0310369b0.herokuapp.com/")
 
 
 
 def test_create_book():
-    r = requests.post(
-        "http://127.0.0.1:8000/api/v2/books/",
+    r = requests.post(BASE_URL+
+        "api/v2/books/",
         json={
             "book": "Create",
             "author": "Allan",
