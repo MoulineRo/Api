@@ -1,7 +1,7 @@
 import os
 
 import requests
-BASE_URL = "https://craftapi-d7d0310369b0.herokuapp.com/"
+BASE_URL = "http://127.0.0.1:8000/"
 
 
 
