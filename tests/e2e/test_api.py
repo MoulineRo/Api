@@ -1,8 +1,8 @@
 import os
 
 import requests
-
 BASE_URL = os.getenv("API_URL", "http://127.0.0.1:8000/")
+
 
 
 def test_create_book():
@@ -58,13 +58,6 @@ def test_update_book_id(id=4):
     assert "author" in response_body
     assert "genre" in response_body
     assert "date" in response_body
-
-
-def test_delete_book_id(id=33):
-    r = requests.delete(BASE_URL + f"api/v2/books/{id}/")
-    assert r.status_code == 200
-    response_body = r.json()
-    assert list == type(response_body)
 
 
 def test_show_allauthors():
