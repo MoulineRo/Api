@@ -12,12 +12,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-qs@s$az@#o&e+co)lc#(s0-qmvo=@%-5f%5r)agzi$0@y1=5jp"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
 
 IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
 
+if not IS_HEROKU_APP:
+    DEBUG = True
+
 if IS_HEROKU_APP:
     ALLOWED_HOSTS = ["*"]
+else:
+    ALLOWED_HOSTS = []
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = ["http://localhost:8000", "https://editor.swagger.io"]
 
 
 # Application definition
@@ -35,6 +44,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",

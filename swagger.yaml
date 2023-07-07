@@ -1,0 +1,265 @@
+openapi: 3.0.3
+info:
+  title: Books API
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:8000/api/v2
+paths:
+  /books/:
+    get:
+      summary: Method for get list of books
+      tags:
+        - Books
+      operationId: getallbooks
+      responses:
+        "200":
+          description: Successful list of books
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Books"
+
+    post:
+      summary: Method for add new book
+      tags:
+        - Books
+      operationId: createbook
+      requestBody:
+        required: true
+        content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Book"
+      responses:
+        "200":
+          description: Successful created book
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Book"
+        "400":
+          description: missing name field
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+
+
+  /books/{id}/:
+    get:
+      summary: Method for get book by id
+      tags:
+        - Books
+      operationId: getbookbyid
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: book`s id
+          schema:
+            type: integer
+          example: 2
+
+      responses:
+        "200":
+          description: Successful book by id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Book"
+        "404":
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    put:
+      summary: Method for update book by id
+      tags:
+        - Books
+      operationId: updatebookbyid
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: book`s id
+          schema:
+            type: integer
+          example: 2
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Book"
+
+
+      responses:
+        "200":
+          description: Successful updated book by id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Book"
+        "400":
+          description: missing name field
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    delete:
+      summary: Method for delete book by id
+      tags:
+        - Books
+      operationId: deletebookbyid
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: book`s id
+          schema:
+            type: integer
+          example: 2
+
+      responses:
+        "200":
+          description: Successful deleted book by id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Books"
+        "404":
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+
+  /authors/:
+    get:
+      summary: Method for get all authors
+      tags:
+        - Authors
+      operationId: getallauthors
+      responses:
+        "200":
+          description: Successful list of authors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Authors"
+
+
+  /authors/{id}/:
+    get:
+      summary: Method for get author by id
+      tags:
+        - Authors
+      operationId: getauthorbyid
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: author`s id
+          schema:
+            type: integer
+          example: 2
+
+      responses:
+        "200":
+          description: Successful author by id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Author"
+        "404":
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+
+
+
+
+components:
+  schemas:
+    Book:
+      type: object
+      required:
+        - book
+        - author
+        - genre
+        - date
+      properties:
+        id:
+          type: integer
+          example: 12
+
+        book:
+          type: string
+          example: Wild animals
+
+        author:
+          type: string
+          example: Connal Macenel
+
+        genre:
+          type: string
+          example: adventures
+
+        date:
+          type: string
+          example: 1855-12-10
+
+    Author:
+      type: object
+      required:
+        - book
+        - author
+        - genre
+        - date
+      properties:
+        id:
+          type: integer
+          example: 12
+
+        book:
+          type: string
+          example: Wild animals
+
+        author:
+          type: string
+          example: Connal Macenel
+
+        genre:
+          type: string
+          example: adventures
+
+        date:
+          type: string
+          example: 1855-12-10
+
+    Books:
+      type: array
+      items:
+        $ref: "#/components/schemas/Book"
+
+    Authors:
+      type: array
+      items:
+        $ref: "#/components/schemas/Author"
+
+
+    Error:
+      type: object
+      required:
+       - error
+      properties:
+        error:
+          type: string

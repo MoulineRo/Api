@@ -1,10 +1,12 @@
-from rest_framework.parsers import JSONParser
-from rest_framework.views import APIView
+import io
+
 from django.http import JsonResponse
 from django.views import View
+from rest_framework.parsers import JSONParser
+from rest_framework.views import APIView
+
 from .models import BooksModel
 from .serializers import ValidateFormSerializer
-import io
 
 
 class Booksget(APIView):
@@ -30,7 +32,6 @@ class Booksget(APIView):
         stream = io.BytesIO(json_data)
         pythondata = JSONParser().parse(stream)
         serializer = ValidateFormSerializer(data=pythondata)
-        print(serializer)
         if serializer.is_valid():
             serializer.save()
             ret = BooksModel.objects.all().values()
@@ -62,7 +63,6 @@ class Booksid(View):
                 date=serializer["date"].value,
             )
             ret = BooksModel.objects.filter(id=id).values()
-            print(ret)
             return JsonResponse(list(ret)[0], safe=False, status=200)
 
         return JsonResponse({"error": "missing name field"}, safe=False, status=400)
