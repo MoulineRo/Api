@@ -23,11 +23,18 @@ if not IS_HEROKU_APP:
 if IS_HEROKU_APP:
     ALLOWED_HOSTS = ["*"]
 else:
-    ALLOWED_HOSTS = []
+    ALLOWED_HOSTS = ["127.0.0.1", "0.0.0.0", "localhost"]
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:8000", "https://editor.swagger.io","https://craftapi-d7d0310369b0.herokuapp.com",'https://github.com']
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:8000",
+    "http://0.0.0.0:8000",
+    "http://localhost:8000",
+    "https://editor.swagger.io",
+    "https://craftapi-d7d0310369b0.herokuapp.com",
+    "https://github.com",
+]
 
 
 # Application definition
@@ -81,8 +88,12 @@ WSGI_APPLICATION = "Api.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "postgres",
+        "USER": "postgres",
+        "PASSWORD": "example",
+        "HOST": "db",
+        "PORT": "5432",
     }
 }
 
