@@ -169,6 +169,7 @@ paths:
             type: integer
           example: 2
 
+
       responses:
         "200":
           description: Successful author by id
@@ -183,7 +184,30 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 
+  /auth/:
+    get:
+      summary: login
+      tags:
+        - Books
+      operationId: login
+      responses:
+        "200":
+          description: Successful
 
+        "404":
+          description: not found
+  /auth/users/:
+    post:
+      summary: login
+      tags:
+        - Books
+      operationId: login
+      responses:
+        "200":
+          description: Successful
+
+        "404":
+          description: not found
 
 
 

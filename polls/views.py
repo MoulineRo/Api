@@ -1,24 +1,19 @@
 import io
-import time
 
-from django.core.cache import cache
-from django.http import JsonResponse
-from django.views import View
 from rest_framework.parsers import JSONParser
-from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 
 from .models import BooksModel
 from .serializers import ValidateFormSerializer
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import cache_page
-from django.views.decorators.vary import vary_on_cookie
+from django.http import JsonResponse
+
+from rest_framework.views import APIView
+
 
 
 class Booksget(APIView):
-    @method_decorator(cache_page(60 * 60 * 2))
-    @method_decorator(vary_on_cookie)
+    permission_classes = [IsAuthenticated]
     def get(self, request):
-        time.sleep(5)
         book = request.GET.get("book")
         author = request.GET.get("author")
         genre = request.GET.get("genre")
@@ -35,8 +30,8 @@ class Booksget(APIView):
             check = BooksModel.objects.all().values()
             return JsonResponse(list(check), safe=False, status=200)
 
+
     def post(self, request):
-        cache.clear()
         json_data = request.body
         stream = io.BytesIO(json_data)
         pythondata = JSONParser().parse(stream)
@@ -49,11 +44,9 @@ class Booksget(APIView):
             return JsonResponse({"error": "missing name field"}, safe=False, status=400)
 
 
-class Booksid(View):
-    @method_decorator(cache_page(60 * 60 * 2))
-    @method_decorator(vary_on_cookie)
+class Booksid(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request, id):
-        time.sleep(5)
         x = BooksModel.objects.values("id")
         y = {"id": id}
         if y in x:
@@ -63,7 +56,6 @@ class Booksid(View):
             return JsonResponse({"error": "not found"}, safe=False, status=404)
 
     def put(self, request, id):
-        cache.clear()
         json_data = request.body
         stream = io.BytesIO(json_data)
         pythondata = JSONParser().parse(stream)
@@ -81,7 +73,6 @@ class Booksid(View):
         return JsonResponse({"error": "missing name field"}, safe=False, status=400)
 
     def delete(self, request, id):
-        cache.clear()
         x = BooksModel.objects.values("id")
         y = {"id": id}
         if y in x:
@@ -92,11 +83,9 @@ class Booksid(View):
             return JsonResponse({"error": "not found"}, safe=False, status=404)
 
 
-class Authors(View):
-    @method_decorator(cache_page(60 * 60 * 2))
-    @method_decorator(vary_on_cookie)
+class Authors(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request):
-        time.sleep(5)
         author = request.GET.get("author")
         if author is not None:
             author = request.GET.get("author")
@@ -107,11 +96,9 @@ class Authors(View):
             return JsonResponse(list(check), safe=False, status=200)
 
 
-class Authorid(View):
-    @method_decorator(cache_page(60 * 60 * 2))
-    @method_decorator(vary_on_cookie)
+class Authorid(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request, id):
-        time.sleep(5)
         x = BooksModel.objects.values("id")
         y = {"id": id}
         if y in x:
