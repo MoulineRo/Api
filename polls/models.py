@@ -7,3 +7,4 @@ class BooksModel(models.Model):
     author = models.CharField(max_length=30)
     genre = models.CharField(max_length=30)
     date = models.DateField()
+

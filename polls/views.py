@@ -1,15 +1,18 @@
 import io
 
-from django.http import JsonResponse
-from django.views import View
 from rest_framework.parsers import JSONParser
-from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 
 from .models import BooksModel
 from .serializers import ValidateFormSerializer
+from django.http import JsonResponse
+
+from rest_framework.views import APIView
+
 
 
 class Booksget(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         book = request.GET.get("book")
         author = request.GET.get("author")
@@ -27,6 +30,7 @@ class Booksget(APIView):
             check = BooksModel.objects.all().values()
             return JsonResponse(list(check), safe=False, status=200)
 
+
     def post(self, request):
         json_data = request.body
         stream = io.BytesIO(json_data)
@@ -40,7 +44,8 @@ class Booksget(APIView):
             return JsonResponse({"error": "missing name field"}, safe=False, status=400)
 
 
-class Booksid(View):
+class Booksid(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request, id):
         x = BooksModel.objects.values("id")
         y = {"id": id}
@@ -78,7 +83,8 @@ class Booksid(View):
             return JsonResponse({"error": "not found"}, safe=False, status=404)
 
 
-class Authors(View):
+class Authors(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         author = request.GET.get("author")
         if author is not None:
@@ -90,7 +96,8 @@ class Authors(View):
             return JsonResponse(list(check), safe=False, status=200)
 
 
-class Authorid(View):
+class Authorid(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request, id):
         x = BooksModel.objects.values("id")
         y = {"id": id}
