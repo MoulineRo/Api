@@ -107,4 +107,3 @@ class Authorid(APIView):
         else:
             return JsonResponse({"error": "not found"}, safe=False, status=404)
 
-#dsghvkjsdhgkjsd
