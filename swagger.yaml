@@ -3,7 +3,7 @@ info:
   title: Books API
   version: 1.0.0
 servers:
-  - url: http://127.0.0.1:8000/api/v2
+  - url: https://craftapi-d7d0310369b0.herokuapp.com/api/v2
 paths:
   /books/:
     get:
@@ -186,10 +186,10 @@ paths:
 
   /auth/:
     get:
-      summary: login
+      summary: enter
       tags:
-        - Books
-      operationId: login
+        - Logs
+      operationId: enter
       responses:
         "200":
           description: Successful
@@ -198,16 +198,60 @@ paths:
           description: not found
   /auth/users/:
     post:
-      summary: login
+      summary: create user
       tags:
-        - Books
-      operationId: login
+        - Logs
+      operationId: log
+      requestBody:
+        required: true
+        content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Log"
       responses:
         "200":
-          description: Successful
+          description: Successful created book
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Log"
+        "400":
+          description: missing name field
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 
-        "404":
-          description: not found
+  /auth/token/login/:
+    post:
+      summary: login
+      tags:
+        - Tokens
+      operationId: token
+      requestBody:
+        required: true
+        content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Token"
+      responses:
+        "200":
+          description: Successful created book
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Token"
+        "400":
+          description: missing name field
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+
+
+
+
 
 
 
@@ -268,6 +312,41 @@ components:
         date:
           type: string
           example: 1855-12-10
+    Log:
+      type: object
+      required:
+        - email address
+        - username
+        - password
+
+      properties:
+        email address:
+          type: string
+          example: Anna
+
+        username:
+          type: string
+          example: MoulineRo
+
+        password:
+          type: string
+          example: ratah22
+    Token:
+      type: object
+      required:
+        - username
+        - password
+
+      properties:
+        username:
+          type: string
+          example: MoulineRo
+
+        password:
+          type: string
+          example: ratah22
+
+
 
     Books:
       type: array
@@ -278,6 +357,14 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/Author"
+    Logs:
+      type: array
+      items:
+        $ref: "#/components/schemas/Log"
+    Tokens:
+      type: array
+      items:
+        $ref: "#/components/schemas/Token"
 
 
     Error:
