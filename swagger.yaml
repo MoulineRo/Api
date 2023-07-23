@@ -3,7 +3,7 @@ info:
   title: Books API
   version: 1.0.0
 servers:
-  - url: https://craftapi-d7d0310369b0.herokuapp.com/api/v2
+  - url: http://127.0.0.1:8000/
 paths:
   /books/:
     get:
@@ -29,7 +29,7 @@ paths:
         content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Book"
+                $ref: "#/components/schemas/BookCreated"
       responses:
         "200":
           description: Successful created book
@@ -43,214 +43,33 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-
-
-
-  /books/{id}/:
-    get:
-      summary: Method for get book by id
+  /order/:
+    post:
       tags:
-        - Books
-      operationId: getbookbyid
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: book`s id
-          schema:
-            type: integer
-          example: 2
-
-      responses:
-        "200":
-          description: Successful book by id
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Book"
-        "404":
-          description: not found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-
-    put:
-      summary: Method for update book by id
-      tags:
-        - Books
-      operationId: updatebookbyid
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: book`s id
-          schema:
-            type: integer
-          example: 2
+        - Order
+      summary: Place order
       requestBody:
-        required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Book"
-
-
-      responses:
-        "200":
-          description: Successful updated book by id
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Book"
-        "400":
-          description: missing name field
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-
-    delete:
-      summary: Method for delete book by id
-      tags:
-        - Books
-      operationId: deletebookbyid
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: book`s id
-          schema:
-            type: integer
-          example: 2
+              $ref: "#/components/schemas/Order"
+            examples:
+              "Buy one book with id 30":
+                value:
+                  order:
+                    [{"book_id":5, "quantity": 3}]
+              "Buy 5 books, two with 4 id and rest of books with 12 id":
+                value:
+                  order:
+                    [{"book_id":5, "quantity": 3},{"book_id":10, "quantity": 5}]
 
       responses:
         "200":
-          description: Successful deleted book by id
+          description: Place order for a book
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Books"
-        "404":
-          description: not found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-
-
-  /authors/:
-    get:
-      summary: Method for get all authors
-      tags:
-        - Authors
-      operationId: getallauthors
-      responses:
-        "200":
-          description: Successful list of authors
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Authors"
-
-
-  /authors/{id}/:
-    get:
-      summary: Method for get author by id
-      tags:
-        - Authors
-      operationId: getauthorbyid
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: author`s id
-          schema:
-            type: integer
-          example: 2
-
-
-      responses:
-        "200":
-          description: Successful author by id
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Author"
-        "404":
-          description: not found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-
-  /auth/:
-    get:
-      summary: enter
-      tags:
-        - Logs
-      operationId: enter
-      responses:
-        "200":
-          description: Successful
-
-        "404":
-          description: not found
-  /auth/users/:
-    post:
-      summary: create user
-      tags:
-        - Logs
-      operationId: log
-      requestBody:
-        required: true
-        content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Log"
-      responses:
-        "200":
-          description: Successful created book
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Log"
-        "400":
-          description: missing name field
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-
-  /auth/token/login/:
-    post:
-      summary: login
-      tags:
-        - Tokens
-      operationId: token
-      requestBody:
-        required: true
-        content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Token"
-      responses:
-        "200":
-          description: Successful created book
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Token"
-        "400":
-          description: missing name field
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-
-
-
-
+                $ref: "#/components/schemas/OrderResponse"
 
 
 
@@ -262,8 +81,8 @@ components:
       required:
         - book
         - author
-        - genre
-        - date
+        - quantity
+        - price
       properties:
         id:
           type: integer
@@ -277,26 +96,21 @@ components:
           type: string
           example: Connal Macenel
 
-        genre:
-          type: string
-          example: adventures
+        quantity:
+          type: integer
+          example: 10
 
-        date:
-          type: string
-          example: 1855-12-10
-
-    Author:
+        price:
+          type: integer
+          example: 1000
+    BookCreated:
       type: object
       required:
         - book
         - author
-        - genre
-        - date
+        - quantity
+        - price
       properties:
-        id:
-          type: integer
-          example: 12
-
         book:
           type: string
           example: Wild animals
@@ -305,46 +119,14 @@ components:
           type: string
           example: Connal Macenel
 
-        genre:
-          type: string
-          example: adventures
+        quantity:
+          type: integer
+          example: 10
 
-        date:
-          type: string
-          example: 1855-12-10
-    Log:
-      type: object
-      required:
-        - email address
-        - username
-        - password
+        price:
+          type: integer
+          example: 1000
 
-      properties:
-        email address:
-          type: string
-          example: Anna
-
-        username:
-          type: string
-          example: MoulineRo
-
-        password:
-          type: string
-          example: ratah22
-    Token:
-      type: object
-      required:
-        - username
-        - password
-
-      properties:
-        username:
-          type: string
-          example: MoulineRo
-
-        password:
-          type: string
-          example: ratah22
 
 
 
@@ -353,18 +135,32 @@ components:
       items:
         $ref: "#/components/schemas/Book"
 
-    Authors:
-      type: array
-      items:
-        $ref: "#/components/schemas/Author"
-    Logs:
-      type: array
-      items:
-        $ref: "#/components/schemas/Log"
-    Tokens:
-      type: array
-      items:
-        $ref: "#/components/schemas/Token"
+    Order:
+      type: object
+      required:
+        - order
+      properties:
+        order:
+          type: array
+          items:
+            type: object
+            required:
+              - book_id
+              - quantity
+            properties:
+              book_id:
+                type: integer
+                example: 11
+              quantity:
+                type: integer
+                example: 5
+
+    OrderResponse:
+      type: object
+      properties:
+        order_id:
+          type: integer
+          example: 100
 
 
     Error:
