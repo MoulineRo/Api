@@ -1,0 +1,15 @@
+{
+  "invoiceId": "230722sUFPBYpHaQdmf",
+  "status": "success",
+  "amount": 4200,
+  "ccy": 980,
+  "finalAmount": 4200,
+  "createdDate": "2023-07-22T12:01:58Z",
+  "modifiedDate": "2023-07-22T12:05:08Z",
+  "reference": "84d0070ee4e44667b31371d8f8813947",
+  "walletData": {
+    "walletId": "69f780d841a0434aa535b08821f4822c",
+    "cardToken": "230722j8Y5a5GgUfcSa",
+    "status": "created"
+  }
+}
