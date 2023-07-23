@@ -35,4 +35,7 @@ class OrderCallBackView(APIView):
     permission_classes = [permissions.AllowAny]
 
     def post(self, request):
-        return JsonResponse({"status": request.data})
+        order = OrderModelSerializer(data=request.data)
+        order.is_valid(raise_exception=True)
+        return JsonResponse({"status": "ok"})
+
