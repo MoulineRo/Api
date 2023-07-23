@@ -35,4 +35,4 @@ class OrderCallBackView(APIView):
     permission_classes = [permissions.AllowAny]
 
     def post(self, request):
-        return JsonResponse({"status": "ok"})
+        return JsonResponse({"status": request.data})
