@@ -31,7 +31,7 @@ def create_order(order_data):
     body = {
         "amount": amount,
         "merchantPaymInfo": {"reference": str(order.id), "basketOrder": basketOrder},
-        "webHookUrl": "https://webhook.site/f5580bb7-77fe-451c-834b-f53e9e7a3c02",
+        "webHookUrl": "https://craftapi-d7d0310369b0.herokuapp.com/callback/",
     }
     r = requests.post(
         "https://api.monobank.ua/api/merchant/invoice/create",
