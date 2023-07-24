@@ -21,7 +21,3 @@ class OrderItem(models.Model):
     book = models.ForeignKey(BooksModel, on_delete=models.CASCADE)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     quantity = models.IntegerField()
-
-
-
-

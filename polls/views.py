@@ -37,13 +37,14 @@ class OrderView(APIView):
 
 @csrf_exempt
 def webhook(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         print(json.loads(request.body))
         Order.objects.create(
-            books=json.loads(request.body)['reference'],
-            total_price=json.loads(request.body)['amount'],
-            created_at=json.loads(request.body)['createdDate'],
-            invoice_id=json.loads(request.body)['invoiceId'],
-            status=json.loads(request.body)['Email'])
+            books=json.loads(request.body)["reference"],
+            total_price=json.loads(request.body)["amount"],
+            created_at=json.loads(request.body)["createdDate"],
+            invoice_id=json.loads(request.body)["invoiceId"],
+            status=json.loads(request.body)["Email"],
+        )
 
         return HttpResponse(request.body, status=200)
