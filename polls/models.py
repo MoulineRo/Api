@@ -2,10 +2,10 @@ from django.db import models
 
 
 class BooksModel(models.Model):
-    book = models.CharField(max_length=30)
-    author = models.CharField(max_length=30)
-    quantity = models.PositiveIntegerField()
-    price = models.IntegerField()
+    book = models.CharField(max_length=300)
+    author = models.CharField(max_length=300)
+    price = models.PositiveIntegerField()
+    quantity = models.IntegerField()
 
 
 class Order(models.Model):

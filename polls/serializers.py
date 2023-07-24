@@ -9,6 +9,7 @@ class ValidateFormSerializer(serializers.ModelSerializer):
         model = BooksModel
         fields = ["id", "book", "author", "quantity", "price"]
 
+
 class OrderContentSerializer(serializers.Serializer):
     book_id = serializers.PrimaryKeyRelatedField(queryset=BooksModel.objects.all())
     quantity = serializers.IntegerField()
