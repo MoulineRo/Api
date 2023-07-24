@@ -1,8 +1,12 @@
+import json
+
+from django.views.decorators.csrf import csrf_exempt
+
 from .mono import create_order
 
 from .models import BooksModel, Order
 from .serializers import ValidateFormSerializer, OrderSerializer, OrderModelSerializer
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 
 from rest_framework.views import APIView
 from rest_framework import viewsets
@@ -31,11 +35,15 @@ class OrderView(APIView):
         return JsonResponse(order_data)
 
 
-class OrderCallBackView(APIView):
-    permission_classes = [permissions.AllowAny]
+@csrf_exempt
+def webhook(request):
+    if request.method == 'POST':
+        print(json.loads(request.body))
+        Order.objects.create(
+            books=json.loads(request.body)['reference'],
+            total_price=json.loads(request.body)['amount'],
+            created_at=json.loads(request.body)['createdDate'],
+            invoice_id=json.loads(request.body)['invoiceId'],
+            status=json.loads(request.body)['Email'])
 
-    def post(self, request):
-        order = OrderModelSerializer(data=request.data)
-        order.is_valid(raise_exception=True)
-        return JsonResponse({"status": "ok"})
-
+        return HttpResponse(request.body, status=200)
