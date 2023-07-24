@@ -35,7 +35,7 @@ def create_order(order_data, webhook_url):
     body = {
         "amount": amount,
         "merchantPaymInfo": {"reference": str(order.id), "basketOrder": basketOrder},
-        "webHookUrl": "webhook_url",
+        "webHookUrl": webhook_url,
     }
     r = requests.post(
         "https://api.monobank.ua/api/merchant/invoice/create",
