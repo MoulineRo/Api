@@ -3,9 +3,13 @@ import os
 
 from django.conf import settings
 from .models import Order, OrderItem
+import base64
+import hashlib
+
+import ecdsa
 
 
-def create_order(order_data):
+def create_order(order_data, webhook_url):
     basketOrder = []
     order_items = []
     amount = 0
@@ -31,7 +35,7 @@ def create_order(order_data):
     body = {
         "amount": amount,
         "merchantPaymInfo": {"reference": str(order.id), "basketOrder": basketOrder},
-        "webHookUrl": "https://craftapi-d7d0310369b0.herokuapp.com/callback/",
+        "webHookUrl": "webhook_url",
     }
     r = requests.post(
         "https://api.monobank.ua/api/merchant/invoice/create",
@@ -43,3 +47,22 @@ def create_order(order_data):
     order.save()
     url = r.json()["pageUrl"]
     return {"url": url, "id": order.id}
+
+
+def verify_signature(pub_key_base64, x_sign_base64, body_bytes):
+    try:
+        pub_key_bytes = base64.b64decode(pub_key_base64)
+        signature_bytes = base64.b64decode(x_sign_base64)
+        pub_key = ecdsa.VerifyingKey.from_pem(pub_key_bytes.decode())
+        ok = pub_key.verify(
+            signature_bytes,
+            body_bytes,
+            sigdecode=ecdsa.util.sigdecode_der,
+            hashfunc=hashlib.sha256,
+        )
+    except Exception:
+        return False
+    if ok:
+        return True
+    else:
+        return False

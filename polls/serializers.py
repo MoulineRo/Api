@@ -32,3 +32,11 @@ class OrderModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ["total_price", "created_at", "invoice_id", "id", "books", "status"]
+
+
+class MonoCallbackSerializer(serializers.Serializer):
+    invoiceId = serializers.CharField()
+    status = serializers.CharField()
+    amount = serializers.IntegerField()
+    ccy = serializers.IntegerField()
+    reference = serializers.CharField()
