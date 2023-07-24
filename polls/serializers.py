@@ -16,7 +16,7 @@ class OrderContentSerializer(serializers.Serializer):
 
 
 class OrderSerializer(serializers.Serializer):
-    order = OrderContentSerializer(many=True, allow_empty=False)
+    order = OrderContentSerializer(many=True, allow_empty=True)
 
 
 class OrderModelSerializer(serializers.ModelSerializer):

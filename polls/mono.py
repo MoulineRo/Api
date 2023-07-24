@@ -1,5 +1,5 @@
 import requests
-import os
+
 
 from django.conf import settings
 from .models import Order, OrderItem
