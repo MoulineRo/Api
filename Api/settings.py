@@ -137,4 +137,3 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 load_dotenv()
 MONOBANK_API_KEY = os.getenv("MONOBANK_API_KEY")
-
