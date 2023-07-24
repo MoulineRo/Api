@@ -4,13 +4,7 @@ from .models import BooksModel, Order
 from rest_framework import serializers
 
 
-class ValidateFormSerializer(serializers.Serializer):
-    id = serializers.ReadOnlyField()
-    book = serializers.CharField(required=True, max_length=32)
-    author = serializers.CharField(required=True, max_length=128)
-    quantity = serializers.IntegerField(required=True, max_value=1000)
-    price = serializers.IntegerField(required=True, max_value=1000)
-
+class ValidateFormSerializer(serializers.ModelSerializer):
     class Meta:
         model = BooksModel
         fields = ["id", "book", "author", "quantity", "price"]
