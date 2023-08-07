@@ -30,12 +30,14 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8000",
     "https://editor.swagger.io",
+    "https://monoapi-1e32ef1dc063.herokuapp.com"
 ]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'django_filters',
     "rest_framework",
     "corsheaders",
     "djoser",
@@ -137,3 +139,9 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 load_dotenv()
 MONOBANK_API_KEY = os.getenv("MONOBANK_API_KEY")
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 3,
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
