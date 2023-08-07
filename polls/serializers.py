@@ -7,7 +7,7 @@ from rest_framework import serializers
 class ValidateFormSerializer(serializers.ModelSerializer):
     class Meta:
         model = BooksModel
-        fields = ["id", "book", "author", "quantity", "price"]
+        fields = ["id", "book", "author", "quantity", "price", "created"]
 
 
 class OrderContentSerializer(serializers.Serializer):

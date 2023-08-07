@@ -6,6 +6,7 @@ class BooksModel(models.Model):
     author = models.CharField(max_length=300)
     price = models.PositiveIntegerField()
     quantity = models.IntegerField()
+    created = models.CharField(max_length=300)
 
 
 class Order(models.Model):

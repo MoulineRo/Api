@@ -1,6 +1,6 @@
 import requests
-
-from django.urls import reverse
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.pagination import LimitOffsetPagination
 
 from Api import settings
 from .mono import create_order, verify_signature
@@ -15,7 +15,7 @@ from .serializers import (
 from django.http import JsonResponse
 
 from rest_framework.views import APIView
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
 from rest_framework import permissions
 from rest_framework.response import Response
 
@@ -24,7 +24,9 @@ class BookViewsSet(viewsets.ModelViewSet):
     queryset = BooksModel.objects.all().order_by("id")
     serializer_class = ValidateFormSerializer
     permission_classes = [permissions.AllowAny]
-
+    filter_backends = [filters.SearchFilter,DjangoFilterBackend]
+    filterset_fields = ['created']
+    search_fields = ['book', 'author']
 
 class OrderViewsSet(viewsets.ReadOnlyModelViewSet):
     queryset = Order.objects.all().order_by("id")
@@ -38,7 +40,8 @@ class OrderView(APIView):
     def post(self, request):
         order = OrderSerializer(data=request.data)
         order.is_valid(raise_exception=True)
-        webhook_url = request.build_absolute_uri(reverse("mono_callback"))
+        # webhook_url = request.build_absolute_uri(reverse("mono_callback"))
+        webhook_url = "https://webhook.site/f5580bb7-77fe-451c-834b-f53e9e7a3c02"
         order_data = create_order(order.validated_data["order"], webhook_url)
         return JsonResponse(order_data)
 
